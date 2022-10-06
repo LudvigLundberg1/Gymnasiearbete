@@ -23,6 +23,18 @@ public class Individual {
 	}
 	
 	public void movement() {
+		if(this.x>mainClass.width) {
+			this.vx *= -1;
+		}
+		if(this.x<0) {
+			this.vx *= -1;
+		}
+		if(this.y<0) {
+			this.vy *= -1;
+		}
+		if(this.y>mainClass.height) {
+			this.vy *= -1;
+		}
 		this.x += this.vx;
 		this.y += this.vy;
 

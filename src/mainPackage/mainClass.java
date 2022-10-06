@@ -1,20 +1,4 @@
-/*package mainPackage;
 
-public class mainClass {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-int startPopulation = 40;
- int []gene = new int[startPopulation]; //length of array
-
- for(int i = 0; i < gene.length; i++) {
-	 gene[i] = 0;
- } //all are selfish
- gene[0] = 1; //one is changed to altruistic
- System.out.println(gene[0]);
-	}
-
-}*/
 package mainPackage;
 
 import java.awt.Color;
@@ -76,7 +60,8 @@ public class mainClass extends JPanel implements ActionListener, KeyListener{
 			if(frog.id[i].gene) {
 				g.setColor(Color.green);
 			} else { g.setColor(Color.red);}
-			g.fillOval(frog.id[i].x.intValue(),frog.id[i].y.intValue(),10,10);
+			
+			g.fillOval(frog.id[i].x.intValue(),frog.id[i].y.intValue(),20,20);
 		}
 		
 

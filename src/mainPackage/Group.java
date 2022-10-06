@@ -13,6 +13,7 @@ public class Group {
 	
 	public int move(){
 	return 9;
+	
 	}
 	
 	public void movement() {

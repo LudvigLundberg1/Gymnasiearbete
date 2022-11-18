@@ -26,7 +26,7 @@ public class Individual {
 	}
 	
 	public void firstGeneration() {
-		if(rnd.nextDouble(1) > 0.90) {
+		if(rnd.nextDouble(1) > 0.999) {
 			this.gene = false; //egoistic
 		} else { this.gene = true;  }//altruistic 
 	}

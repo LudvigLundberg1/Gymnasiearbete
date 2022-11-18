@@ -56,8 +56,10 @@ public class Group {
 			boolean temp = genepool[randomIndexToSwap]; //saving the value temporarily
 			genepool[randomIndexToSwap] = genepool[i];
 			genepool[i] = temp;
+			System.out.println(genepool[i]);
 			
 		}
+		System.out.println("-------");
 
 		
 		currentSize = genepool.length*2;

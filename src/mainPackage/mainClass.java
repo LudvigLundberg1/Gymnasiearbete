@@ -50,6 +50,7 @@ public class mainClass extends JPanel implements ActionListener, KeyListener{
 	static Random rnd = new Random();
 	static String a;
 	static int generationTime = 0;
+	static int populationEveryGeneration[] = new int[100];
 	Timer tm = new Timer(20, this);
 	Individual ind;
  
@@ -71,7 +72,10 @@ public class mainClass extends JPanel implements ActionListener, KeyListener{
 		super.paintComponent(g);
 		g.drawString("Population: " + Integer.toString(dino.currentSize), 20, 20);
 		g.drawString("Generations: " + Integer.toString(dino.generations), 20, 50);
-
+		//graph
+		g.fillRect(200, 100-dino.currentSize, 5,5);
+	
+		
 		
 		for(int i = 0; i < dino.id.length; i ++) {
 			ind = dino.id[i]; //skapar referens
@@ -97,6 +101,7 @@ public class mainClass extends JPanel implements ActionListener, KeyListener{
 		g.setColor(Color.black);
 		g.fillOval(predator.x.intValue(), predator.y.intValue(),20,20);
 		if(dino.safeFromPredator) {
+			g.setColor(Color.blue);
 			g.drawString("ALL SAFE", 20, 80);
 
 		}
@@ -119,7 +124,7 @@ public class mainClass extends JPanel implements ActionListener, KeyListener{
 		if(generationTime>200) {
 			dino.replication();
 			generationTime = 0;
-			dino.generations ++;
+			dino.generations ++; 
 			
 		}
 		if(generationTime==100) {

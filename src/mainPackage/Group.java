@@ -4,7 +4,7 @@ import java.util.Random;
 public class Group {
 	
 	Random rnd = new Random();
-	int size = 15;
+	int size = 10;
 	int currentSize = size;
 	int generations = 0;
 	Individual id[] = new Individual[currentSize];
@@ -25,11 +25,15 @@ public class Group {
 	
 	public void action() {
 		for(int i = 0; i < id.length; i++) {
-			id[i].movement1();
+				if(id[i].alive) {
+					id[i].movement1();
+			
+					if(safeFromPredator == false) {
+						id[i].gettingDetected();
+					}
+				}	
 
-			if(safeFromPredator == false) {
-				id[i].gettingDetected();
-			}
+			
 			
 		}
 
@@ -42,11 +46,16 @@ public class Group {
 		//genepool
 
 		genepool = new boolean[currentSize];
+		System.out.println("current size" + currentSize);
+
 		index = 0;
-		for(int i = 0; i < currentSize; i++) {
+		for(int i = 0; i < id.length; i++) {
 			if(id[i].alive) {
 				genepool[index] = id[i].gene; //moves population to genepool
 				index++;
+				System.out.println("index" + index);
+
+				
 			} 
 		}
 		
@@ -94,11 +103,13 @@ public class Group {
 	public void malnutrition() {
 		if(currentSize>mainClass.maxPopulation) {
 			for(int i = 0; i < id.length; i++) {
+				if(id[i].alive) {
 			if(mainClass.risk(Double.valueOf(mainClass.maxPopulation/currentSize))) { //chance of survival
 				
 			} else {
 				id[i].alive = false; //die of malnutrition
 				currentSize--;
+			}
 			}
 			}
 		}

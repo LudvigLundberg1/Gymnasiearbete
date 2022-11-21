@@ -6,8 +6,9 @@ public class Individual {
     Double x, y, vx, vy;
     Double radius;
     static int diameterOfIndividual = 10;
-    static Double egoistRiskOfDetection = 0.5;
-    static Double RiskOfDeath = 0.5;
+    static Double egoistRiskOfDetection = 0.9;
+    static Double RiskOfDeath = 0.8;
+    static Double altruistRate = 0.3;
 	static Random rnd = new Random();
 
 	public Individual() {
@@ -26,9 +27,9 @@ public class Individual {
 	}
 	
 	public void firstGeneration() {
-		if(rnd.nextDouble(1) > 0.999) {
-			this.gene = false; //egoistic
-		} else { this.gene = true;  }//altruistic 
+		if(rnd.nextDouble(1) < altruistRate) {
+			this.gene = true; //egoistic
+		} else { this.gene = false;  }//altruistic 
 	}
 	
 	public void movement1() {
@@ -49,7 +50,7 @@ public class Individual {
 
 	}
 	public void gettingDetected() { //at this distance, the individual notices the predator
-		if(safe == false && mainClass.distance(this.x, this.y, mainClass.predator.x,mainClass.predator.y)<this.radius) 
+		if(this.safe == false && mainClass.distance(this.x, this.y, mainClass.predator.x,mainClass.predator.y)<this.radius) 
 			{
 			if(this.gene) { //it's altruistic
 				//100% risk of getting detected
@@ -67,10 +68,11 @@ public class Individual {
 				//50% risk of getting caught
 				if(safe==false) {
 					alive = mainClass.risk(1-RiskOfDeath);
+					if(alive==false) {
+						mainClass.dino.currentSize--;
+					}
 				}
-				if(alive==false) {
-					mainClass.dino.currentSize--;
-				}
+				
 				safe = true;
 			}
 			}

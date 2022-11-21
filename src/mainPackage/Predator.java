@@ -9,7 +9,7 @@ public class Predator {
 			this.x = rnd.nextDouble(700);
 			this.y = rnd.nextDouble(700);
 			
-			this.v = 10.0;
+			this.v = 20.0;
 			this.vx = v*(rnd.nextDouble(2)-1);
 			this.vy = v*(rnd.nextDouble(2)-1);
 		}

@@ -2,34 +2,48 @@ package mainPackage;
 import java.util.Random;
 
 public class Individual {
+	
 	boolean gene, detected, alive, safe; 
     Double x, y, vx, vy;
+    
     Double radius;
-    static int diameterOfIndividual = 10;
-    static Double egoistRiskOfDetection = 0.9;
-    static Double RiskOfDeath = 0.8;
-    static Double altruistRate = 0.3;
+    int diameterOfIndividual;
+    Double egoistRiskOfDetection;
+    Double RiskOfDeath;
+    Double chanceOfSuccessfulWarning;
+    Double altruistRate;
+    
 	static Random rnd = new Random();
+	int groupIndex;
 
 	public Individual() {
 			
-			this.x = rnd.nextDouble(700);
-			this.y = rnd.nextDouble(700);
+			this.x = rnd.nextDouble(mainClass.width);
+			this.y = rnd.nextDouble(mainClass.height);
 
 			this.vx = rnd.nextDouble(4)-2;
 			this.vy = rnd.nextDouble(4)-2;
 			
-			this.radius = 100.0;
 			this.detected = false;
 			this.alive = true;
 			this.safe = false;
-		
+			
+			 this.radius = 40.0; //set to 40.0
+			 this.diameterOfIndividual = 10; //set to 10
+			 this.egoistRiskOfDetection = 0.9; //set to 0.9
+			 this.RiskOfDeath = 0.8; //set to 0.8
+			 this.chanceOfSuccessfulWarning = 1.0; //100% that the warning makes everyone safe   
 	}
 	
+
 	public void firstGeneration() {
-		if(rnd.nextDouble(1) < altruistRate) {
-			this.gene = true; //egoistic
-		} else { this.gene = false;  }//altruistic 
+	
+		
+		    this.altruistRate = mainClass.dino[groupIndex].altruistRate;
+		    
+			if(rnd.nextDouble(1) < altruistRate) {
+				this.gene = true; //egoistic
+			} else { this.gene = false;  }//altruistic 
 	}
 	
 	public void movement1() {
@@ -55,7 +69,9 @@ public class Individual {
 			if(this.gene) { //it's altruistic
 				//100% risk of getting detected
 				detected = true;
-				mainClass.dino.safeFromPredator = true; //everyone else is now safe
+				if(mainClass.risk(this.chanceOfSuccessfulWarning)) {
+					mainClass.dino[groupIndex].safeFromPredator = true; //everyone else is now safe
+				}
 			} else {
 				//50% risk of getting detected
 				detected = mainClass.risk(egoistRiskOfDetection);
@@ -69,12 +85,13 @@ public class Individual {
 				if(safe==false) {
 					alive = mainClass.risk(1-RiskOfDeath);
 					if(alive==false) {
-						mainClass.dino.currentSize--;
+
+						mainClass.dino[this.groupIndex].currentSize--;
 					}
 				}
 				
 				safe = true;
-			}
+				}
 			}
 	}
 	

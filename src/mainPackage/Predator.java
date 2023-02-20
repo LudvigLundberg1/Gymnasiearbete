@@ -2,16 +2,17 @@ package mainPackage;
 import java.util.Random;
 
 public class Predator {
-	Double x, y, v, vx, vy;
+	Double x, y, v, vx, vy, angle;
 	static Random rnd = new Random();
 
 		public Predator(){
-			this.x = rnd.nextDouble(700);
-			this.y = rnd.nextDouble(700);
+			this.x = rnd.nextDouble(mainClass.width);
+			this.y = rnd.nextDouble(mainClass.height);
 			
-			this.v = 20.0;
-			this.vx = v*(rnd.nextDouble(2)-1);
-			this.vy = v*(rnd.nextDouble(2)-1);
+			this.v = 50.0; //set to 50.0     (this should be constant, calculate the components with trig)
+			this.angle = rnd.nextDouble(2*Math.PI);
+			this.vx = v*Math.sin(angle); 
+			this.vy = v*Math.cos(angle);
 		}
 	
 	public void action() {
